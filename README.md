@@ -13,3 +13,4 @@
 - 새 콘텐츠와 수정은 별도 작업 브랜치에서 진행합니다.
 - 검수 후 Pull Request를 통해 `main`에 병합합니다.
 - Cloudflare Workers가 `main`의 변경 사항을 자동 배포합니다.
+- Cloudflare Workers로 배포된 콘텐츠 웹사이트입니다.
