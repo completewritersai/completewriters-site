@@ -31,6 +31,7 @@
                         ink: {
                             DEFAULT: '#1E232A',
                             muted: '#525B6A',
+                            body: '#3A414B', // 긴 글 본문용 (muted보다 진함)
                             light: '#8C95A3',
                         },
                         accent: {
@@ -60,6 +61,10 @@
             word-break: keep-all;
             overflow-wrap: break-word;
         }
+        /* 줄바꿈 다듬기: 제목·가운데 정렬 문구는 줄 길이를 고르게, 문단은 마지막 줄에 한 단어만 남지 않게 */
+        h1, h2, h3, h4 { text-wrap: balance; }
+        p, li { text-wrap: pretty; }
+        .text-center p, p.text-center { text-wrap: balance; }
         .toast {
             visibility: hidden;
             opacity: 0;
@@ -117,10 +122,10 @@
             </a>
             
             <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-ink-muted">
-                <button type="button" onclick="switchView('workflow');" class="hover:text-accent transition font-semibold text-left">5단계</button>
                 <a href="#tips" onclick="switchView('main'); scrollToSection('#tips'); return false;" class="hover:text-accent transition">Archive</a>
                 <a href="#stibee" onclick="switchView('main'); scrollToSection('#stibee'); return false;" class="hover:text-accent transition">Newsletter</a>
                 <a href="#ask" onclick="switchView('main'); scrollToSection('#ask'); return false;" class="hover:text-accent transition">고민 보내기</a>
+                <a href="https://open.kakao.com/o/pVBIXMIi" target="_blank" rel="noopener noreferrer" class="hover:text-accent transition">오픈톡방</a>
             </nav>
 
             <div class="flex items-center gap-3">
@@ -139,10 +144,10 @@
 
         <div id="mobile-menu" class="hidden md:hidden border-t border-line bg-white">
             <nav class="flex flex-col px-4 sm:px-6 py-2 text-sm font-semibold text-ink-muted">
-                <button type="button" onclick="switchView('workflow'); closeMobileMenu();" class="py-2.5 hover:text-accent transition text-left font-semibold">5단계</button>
                 <a href="#tips" onclick="switchView('main'); scrollToSection('#tips'); closeMobileMenu(); return false;" class="py-2.5 hover:text-accent transition">Archive</a>
                 <a href="#stibee" onclick="switchView('main'); scrollToSection('#stibee'); closeMobileMenu(); return false;" class="py-2.5 hover:text-accent transition">Newsletter</a>
                 <a href="#ask" onclick="switchView('main'); scrollToSection('#ask'); closeMobileMenu(); return false;" class="py-2.5 hover:text-accent transition">고민 보내기</a>
+                <a href="https://open.kakao.com/o/pVBIXMIi" target="_blank" rel="noopener noreferrer" onclick="closeMobileMenu();" class="py-2.5 hover:text-accent transition">오픈톡방</a>
             </nav>
         </div>
     </header>
@@ -150,8 +155,8 @@
     <main class="flex-grow">
         <!-- VIEW: MAIN LANDING -->
         <div id="view-main">
-            <!-- Hero & Workflow System Intro Section -->
-            <section id="about-system" class="py-16 md:py-24 px-4 max-w-4xl mx-auto">
+            <!-- Hero Intro Section -->
+            <section id="about-system" class="pt-16 md:pt-24 px-4 max-w-4xl mx-auto">
                 <div class="text-center">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-bg text-accent text-xs sm:text-sm font-bold mb-6 border border-accent/20">
                         <i data-lucide="award" class="w-4 h-4" aria-hidden="true"></i>
@@ -164,139 +169,14 @@
                     </h1>
                     
                     <p class="hero-subtitle text-base sm:text-lg text-ink-muted max-w-2xl mx-auto mb-14 leading-relaxed font-normal">
-                        웹소설·시나리오 같은 스토리텔링부터 에세이, 블로그 글, 업무 보고서, 뉴스레터, 전자책까지!<br class="hidden sm:inline">
-                        AI와 함께 글을 쓰는 사람들이 실제로 겪는 문제를 살펴보고, 직접 실험하며, 글을 끝까지 완성하는 방법을 찾아갑니다.
+                        <span class="sm:block"><span class="whitespace-nowrap">웹소설·시나리오 같은</span> 스토리텔링부터 에세이, <span class="whitespace-nowrap">블로그 글,</span> <span class="whitespace-nowrap">업무 보고서,</span> 뉴스레터, 전자책까지!</span>
+                        <span class="sm:block"><span class="whitespace-nowrap">AI와 함께</span> <span class="whitespace-nowrap">글을 쓰는</span> 사람들이 실제로 겪는 문제를 살펴보고, <span class="whitespace-nowrap">직접 실험하며,</span> <span class="whitespace-nowrap">글을 끝까지</span> 완성하는 방법을 찾아갑니다.</span>
                     </p>
-                </div>
-
-                <!-- Workflow System Summary Box (Linking to Full Page) -->
-                <div class="bg-white rounded-3xl p-6 sm:p-10 border border-line shadow-sm mb-12">
-                    <div class="text-center max-w-2xl mx-auto mb-10">
-                        <span class="text-accent font-bold text-xs uppercase tracking-widest mb-1.5 block">Easy Writing Step</span>
-                        <h2 class="text-xl sm:text-2xl font-extrabold text-ink mb-2">완결러들의 5단계 완결 시스템</h2>
-                        <p class="text-ink-muted text-sm leading-relaxed">
-                            어떤 글이든 시작부터 발행까지 이어지는 가장 기본적인 작업 구조입니다.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-                        <div class="bg-siteBg p-4 sm:p-5 rounded-2xl border border-line flex flex-col justify-between">
-                            <div>
-                                <div class="text-accent font-serif font-extrabold text-xl mb-1.5">01</div>
-                                <h3 class="font-bold text-ink text-sm mb-1">아이디어 정리</h3>
-                                <p class="text-ink-muted text-xs leading-relaxed">머릿속에 떠오른 막연한 생각과 메모를 한 줄 핵심 주제로 명확하게 정리합니다.</p>
-                            </div>
-                        </div>
-                        <div class="bg-siteBg p-4 sm:p-5 rounded-2xl border border-line flex flex-col justify-between">
-                            <div>
-                                <div class="text-accent font-serif font-extrabold text-xl mb-1.5">02</div>
-                                <h3 class="font-bold text-ink text-sm mb-1">뼈대 세우기</h3>
-                                <p class="text-ink-muted text-xs leading-relaxed">글 중간에 길을 잃지 않도록 목차와 전체적인 흐름의 뼈대를 미리 설계합니다.</p>
-                            </div>
-                        </div>
-                        <div class="bg-siteBg p-4 sm:p-5 rounded-2xl border border-line flex flex-col justify-between">
-                            <div>
-                                <div class="text-accent font-serif font-extrabold text-xl mb-1.5">03</div>
-                                <h3 class="font-bold text-ink text-sm mb-1">초고 쓰기</h3>
-                                <p class="text-ink-muted text-xs leading-relaxed">완벽에 대한 집착을 내려놓고, AI의 도움을 받아 속도감 있게 첫 원고를 써 내려갑니다.</p>
-                            </div>
-                        </div>
-                        <div class="bg-siteBg p-4 sm:p-5 rounded-2xl border border-line flex flex-col justify-between">
-                            <div>
-                                <div class="text-accent font-serif font-extrabold text-xl mb-1.5">04</div>
-                                <h3 class="font-bold text-ink text-sm mb-1">다듬기</h3>
-                                <p class="text-ink-muted text-xs leading-relaxed">어색한 문장을 매끄럽게 고치고 나만의 개성 있는 문체와 톤을 입힙니다.</p>
-                            </div>
-                        </div>
-                        <div class="bg-siteBg p-4 sm:p-5 rounded-2xl border border-accent/40 bg-accent-bg/30 flex flex-col justify-between">
-                            <div>
-                                <div class="text-accent font-serif font-extrabold text-xl mb-1.5">05</div>
-                                <h3 class="font-bold text-ink text-sm mb-1">완결 및 발행</h3>
-                                <p class="text-ink-muted text-xs leading-relaxed">블로그, 뉴스레터, 플랫폼에 최종 등록하여 당당하게 마침표를 찍습니다.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button type="button" onclick="switchView('workflow'); window.scrollTo({top: 0, behavior: 'smooth'});"
-                                class="inline-flex items-center gap-2 text-accent hover:text-accent-hover font-bold text-sm bg-accent-bg px-6 py-3 rounded-xl border border-accent/20 transition">
-                            <span>글쓰기 5단계 상세 가이드 보기</span>
-                            <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-md mx-auto">
-                    <button type="button" onclick="switchView('workflow'); window.scrollTo({top: 0, behavior: 'smooth'});"
-                       class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-white font-bold px-7 py-3.5 rounded-xl shadow-md transition transform hover:-translate-y-0.5">
-                        <i data-lucide="compass" class="w-5 h-5" aria-hidden="true"></i>
-                        <span>5단계로 시작하기</span>
-                    </button>
-                    <a href="#tips" onclick="switchView('main'); scrollToSection('#tips'); return false;"
-                       class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 bg-white hover:bg-siteBg text-ink font-bold px-7 py-3.5 rounded-xl border border-line shadow-sm transition transform hover:-translate-y-0.5">
-                        <span>Archive 둘러보기</span>
-                        <i data-lucide="arrow-right" class="w-5 h-5 text-accent" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </section>
-
-            <!-- Reality Check (All types of writing) -->
-            <section id="pain" class="py-16 bg-white border-y border-line">
-                <div class="max-w-4xl mx-auto px-4 sm:px-6">
-                    <div class="text-center max-w-2xl mx-auto mb-12">
-                        <span class="text-accent font-bold text-xs uppercase tracking-widest mb-1.5 block">Reality Check</span>
-                        <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-3">완성하지 못한 글이 있다면</h2>
-                        <p class="text-ink-muted text-sm sm:text-base">의지보다 시스템을 먼저 의심해보세요.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-                        <div class="bg-siteBg p-5 rounded-xl border border-line flex items-center gap-3.5">
-                            <span class="w-8 h-8 rounded-full bg-accent-bg text-accent font-bold flex items-center justify-center text-xs shrink-0">01</span>
-                            <p class="text-ink text-sm font-semibold">첫 화에서 멈춘 소설</p>
-                        </div>
-                        <div class="bg-siteBg p-5 rounded-xl border border-line flex items-center gap-3.5">
-                            <span class="w-8 h-8 rounded-full bg-accent-bg text-accent font-bold flex items-center justify-center text-xs shrink-0">02</span>
-                            <p class="text-ink text-sm font-semibold">임시저장된 에세이</p>
-                        </div>
-                        <div class="bg-siteBg p-5 rounded-xl border border-line flex items-center gap-3.5">
-                            <span class="w-8 h-8 rounded-full bg-accent-bg text-accent font-bold flex items-center justify-center text-xs shrink-0">03</span>
-                            <p class="text-ink text-sm font-semibold">미뤄진 뉴스레터</p>
-                        </div>
-                        <div class="bg-siteBg p-5 rounded-xl border border-line flex items-center gap-3.5">
-                            <span class="w-8 h-8 rounded-full bg-accent-bg text-accent font-bold flex items-center justify-center text-xs shrink-0">04</span>
-                            <p class="text-ink text-sm font-semibold">목차만 남은 전자책</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-accent-bg rounded-2xl p-6 sm:p-8 border border-accent/20 text-center max-w-2xl mx-auto">
-                        <p class="text-ink font-bold text-base sm:text-lg mb-1">문제는 "더 열심히 쓰는 법"이 아니라</p>
-                        <p class="text-ink-muted text-sm mb-4">어디에서 막히는지를 찾는 것일지도 모릅니다.</p>
-                        <a href="#tips" onclick="switchView('main'); scrollToSection('#tips'); return false;"
-                           class="inline-flex items-center gap-2 text-accent hover:text-accent-hover font-bold text-sm">
-                            <span>Archive에서 문제 살펴보기</span>
-                            <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- This Month Theme -->
-            <section id="this-month" class="py-16 max-w-4xl mx-auto px-4 sm:px-6">
-                <div class="bg-accent-bg rounded-3xl p-8 sm:p-10 border border-accent/20 text-center">
-                    <span class="text-accent font-bold text-xs uppercase tracking-widest mb-1.5 block">This Month</span>
-                    <h2 class="text-xl sm:text-2xl font-extrabold text-ink mb-3">이번 달 우리가 들여다보는 문제</h2>
-                    <p class="text-ink font-bold text-base sm:text-lg mb-1">AI는 이야기를 더 좋게 만들 수 있다. 그런데 왜 작품들은 닮아질까?</p>
-                    <p class="text-ink font-bold text-base sm:text-lg mb-6">창작자에게 필요한 것은 AI의 답이 아니라, AI의 답을 다루는 기준이다.</p>
-                    <a href="#tips" onclick="switchView('main'); scrollToSection('#tips'); return false;"
-                       class="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white font-bold text-sm px-6 py-3 rounded-xl transition">
-                        <span>이번 달 콘텐츠 보기</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
-                    </a>
                 </div>
             </section>
 
             <!-- Archive & Prompts Section -->
-            <section id="tips" class="py-20 max-w-4xl mx-auto px-4 sm:px-6">
+            <section id="tips" class="pb-20 max-w-4xl mx-auto px-4 sm:px-6">
                 <div class="text-center max-w-2xl mx-auto mb-6">
                     <span class="text-accent font-bold text-xs uppercase tracking-widest mb-1.5 block">Archive</span>
                     <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-3">작가가 실제로 겪는 글쓰기 문제를 연구하고 기록합니다.</h2>
@@ -327,16 +207,28 @@
                 <p class="text-ink-light text-xs text-center mt-6">다음 아카이브도 순차적으로 업데이트됩니다.</p>
             </section>
 
-            <!-- Free Worksheet -->
-            <section id="worksheet" class="py-16 bg-white border-y border-line">
-                <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-                    <span class="text-accent font-bold text-xs uppercase tracking-widest mb-1.5 block">Free Worksheet</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-2">이번 달 직접 해보기</h2>
-                    <p class="text-ink font-bold text-base sm:text-lg mb-1">The One-Page Chapter Reset</p>
-                    <p class="text-ink-muted text-sm mb-6">다음 회차를 시작하기 전에 5가지 정보만 다시 확인해보세요.</p>
-                    <span class="inline-flex items-center gap-2 bg-siteBg text-ink-light font-bold text-sm px-6 py-3 rounded-xl border border-line cursor-not-allowed">
-                        무료 워크시트 받기 (준비 중)
-                    </span>
+            <!-- Share Your Problem -->
+            <section id="ask" class="py-16 bg-siteBg border-t border-line">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                    <div class="bg-white rounded-3xl p-8 sm:p-12 border border-line shadow-sm">
+                        <div class="max-w-xl mx-auto">
+                            <div class="text-center mb-8">
+                                <span class="text-accent font-bold text-xs uppercase tracking-widest mb-1.5 block">Share Your Problem</span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-3">지금 어디에서 막혔나요?</h2>
+                                <p class="text-ink-muted text-sm sm:text-base leading-relaxed">
+                                    완결러들은 작가들이 실제로 겪는 고민에서 다음 Archive의 질문을 찾습니다.
+                                </p>
+                            </div>
+
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSd63JFwn_BrP7pDd2AJ2bj3eqCZO99nJMQB1OWCehidUJoQvA/viewform"
+                               target="_blank" rel="noopener noreferrer"
+                               class="w-full inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-white font-bold text-sm h-[54px] rounded-xl shadow-md transition">
+                                <span>고민 보내기</span>
+                                <i data-lucide="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
+                            </a>
+                            <p class="text-ink-light text-xs text-center mt-3">구글 폼으로 연결됩니다. 1분이면 충분해요.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -352,17 +244,20 @@
                                 <span>Newsletter</span>
                             </div>
                             
-                            <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-3">Archive를 더 깊게 읽는 편지</h2>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-3">금요일마다 받는<br class="sm:hidden"> 글쓰기 템플릿</h2>
                             <p class="text-ink-muted text-sm sm:text-base mb-6 leading-relaxed">
-                                매주 하나의 글쓰기 문제를 더 깊게 살펴봅니다. 조사하면서 발견한 것, 직접 적용해본 방법, 그리고 이번 주에 해볼 작은 실험을 보내드립니다.
+                                매주 금요일, 글을 끝까지 완성하는 데 <span class="whitespace-nowrap">바로 쓸 수 있는</span> 템플릿을 메일로 보내드립니다. 받은 템플릿을 내 글에 그대로 적용해 보세요.
                             </p>
 
                             <div class="flex flex-wrap items-center justify-center gap-2 mb-6 text-xs font-bold text-ink-muted">
-                                <span class="px-3 py-1.5 rounded-full bg-siteBg border border-line">이번 주 Archive</span>
-                                <span class="text-ink-light">+</span>
-                                <span class="px-3 py-1.5 rounded-full bg-siteBg border border-line">Editor's Note</span>
-                                <span class="text-ink-light">+</span>
-                                <span class="px-3 py-1.5 rounded-full bg-siteBg border border-line">10분 실험</span>
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-siteBg border border-line">
+                                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-accent" aria-hidden="true"></i>
+                                    매주 금요일 발송
+                                </span>
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-siteBg border border-line">
+                                    <i data-lucide="file-text" class="w-3.5 h-3.5 text-accent" aria-hidden="true"></i>
+                                    글쓰기 템플릿 공유
+                                </span>
                             </div>
 
                             <!-- Stibee 공식 구독 폼 연동 -->
@@ -400,12 +295,12 @@
                                         <label class="stb_policy_label">
                                             <input type="checkbox" id="stb_policy" value="stb_policy_true">
                                             <span>(필수)</span>
-                                            <button
+                                            <span class="whitespace-nowrap"><button
                                                 id="stb_form_modal_open"
                                                 data-modal="stb_form_policy_modal"
                                                 class="stb_form_modal_open_btn"
                                                 type="button"
-                                            >개인정보 수집 및 이용</button>에 동의합니다.
+                                            >개인정보 수집 및 이용</button>에 동의합니다.</span>
                                         </label>
                                         <div class="stb_form_msg_error" id="stb_policy_error"></div>
 
@@ -428,7 +323,7 @@
                                             type="submit"
                                             class="stb_form_submit_button"
                                             id="stb_form_submit_button"
-                                        >매주 받아보기</button>
+                                        >금요일마다 받아보기</button>
                                     </fieldset>
                                 </form>
                             </div>
@@ -466,7 +361,7 @@
                                     margin: 0 !important; border: 0 !important; border-radius: 12px !important;
                                     background: #C04626 !important; color: #FFFFFF !important;
                                     font-family: 'Pretendard', sans-serif !important; font-size: 14px !important;
-                                    font-weight: 700 !important; cursor: pointer !important;
+                                    font-weight: 700 !important; cursor: pointer !important; white-space: nowrap !important;
                                     box-shadow: 0 4px 10px rgba(192,70,38,.16) !important;
                                 }
                                 .stibee-custom-wrap .stb_form_submit_button:hover { background: #A3371C !important; }
@@ -476,11 +371,11 @@
                                     text-align: left !important;
                                 }
                                 .stibee-custom-wrap .stb_policy_label {
-                                    display: flex !important; align-items: center !important; gap: 5px !important;
-                                    flex-wrap: wrap !important; line-height: 1.5 !important; cursor: pointer !important;
+                                    display: block !important; line-height: 1.6 !important; cursor: pointer !important;
                                 }
                                 .stibee-custom-wrap #stb_policy {
-                                    width: 15px !important; height: 15px !important; margin: 0 2px 0 0 !important;
+                                    width: 15px !important; height: 15px !important; margin: 0 4px 0 0 !important;
+                                    vertical-align: -3px !important;
                                     accent-color: #C04626 !important;
                                 }
                                 .stibee-custom-wrap .stb_form_modal_open_btn {
@@ -490,9 +385,13 @@
                                 }
                                 .stibee-custom-wrap .stb_form_msg_error { margin-top: 5px !important; color: #C04626 !important; font-size: 11px !important; }
                                 .stibee-custom-wrap .stb_form_result { margin: 0 !important; padding: 0 !important; }
+                                @media (max-width: 639px) {
+                                    /* 모바일: 폼 안쪽 여백을 줄여 문구가 좁게 접히지 않게 */
+                                    #stb_subscribe.stibee-custom-wrap { padding: 20px 16px !important; }
+                                }
                                 @media (min-width: 640px) {
                                     .stibee-custom-wrap .stb_form {
-                                        display: grid !important; grid-template-columns: minmax(0, 1fr) 150px !important;
+                                        display: grid !important; grid-template-columns: minmax(0, 1fr) 180px !important;
                                         gap: 12px !important; align-items: start !important;
                                     }
                                     .stibee-custom-wrap .stb_form_set { grid-column: 1; grid-row: 1; margin: 0 !important; }
@@ -500,30 +399,6 @@
                                     .stibee-custom-wrap .stb_form_set_submit { grid-column: 2; grid-row: 1; }
                                 }
                             </style>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Share Your Problem -->
-            <section id="ask" class="py-16 bg-siteBg border-t border-line">
-                <div class="max-w-4xl mx-auto px-4 sm:px-6">
-                    <div class="bg-white rounded-3xl p-8 sm:p-12 border border-line shadow-sm">
-                        <div class="max-w-xl mx-auto">
-                            <div class="text-center mb-8">
-                                <span class="text-accent font-bold text-xs uppercase tracking-widest mb-1.5 block">Share Your Problem</span>
-                                <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-3">지금 어디에서 막혔나요?</h2>
-                                <p class="text-ink-muted text-sm sm:text-base leading-relaxed">
-                                    완결러들은 작가들이 실제로 겪는 고민에서 다음 Archive의 질문을 찾습니다.
-                                </p>
-                            </div>
-
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSd63JFwn_BrP7pDd2AJ2bj3eqCZO99nJMQB1OWCehidUJoQvA/viewform"
-                               target="_blank" rel="noopener noreferrer"
-                               class="w-full inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-white font-bold text-sm h-[54px] rounded-xl shadow-md transition">
-                                <span>고민 보내기</span>
-                                <i data-lucide="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
-                            </a>
-                            <p class="text-ink-light text-xs text-center mt-3">구글 폼으로 연결됩니다. 1분이면 충분해요.</p>
                         </div>
                     </div>
                 </div>
@@ -578,7 +453,7 @@
                 <div class="max-w-4xl mx-auto px-4 sm:px-6">
                     <div class="bg-siteBg rounded-2xl p-6 border border-line text-center">
                         <span class="text-ink-light font-bold text-[11px] uppercase tracking-widest mb-1.5 block">Duto Founding Writers</span>
-                        <p class="text-ink-muted text-xs sm:text-sm mb-1">장편 집필에서 반복되는 문제를 더 나은 도구로 해결하는 실험에 참여합니다.</p>
+                        <p class="text-ink-muted text-xs sm:text-sm mb-1">장편 집필에서 반복되는 문제를 <span class="whitespace-nowrap">더 나은 도구로</span> 해결하는 실험에 참여합니다.</p>
                         <p class="text-ink-light text-xs mb-3">선택적으로 참여할 수 있습니다.</p>
                         <a href="#ask" onclick="switchView('main'); scrollToSection('#ask'); return false;"
                            class="text-ink-muted hover:text-accent text-xs font-bold underline">자세히 보기</a>
@@ -623,19 +498,19 @@
                 </div>
 
                 <div class="grid grid-cols-5 gap-2" id="workflow-tab-buttons">
-                    <button type="button" onclick="selectWorkflowStep(1)" class="workflow-tab-btn p-3 rounded-xl text-center transition border border-accent bg-accent-bg text-accent font-bold text-xs sm:text-sm">
+                    <button type="button" onclick="selectWorkflowStep(1)" class="workflow-tab-btn py-3 px-1 sm:px-3 rounded-xl text-center transition border border-accent bg-accent-bg text-accent font-bold text-xs sm:text-sm">
                         <span class="block text-[10px] opacity-80 mb-0.5">01</span>생각 정리
                     </button>
-                    <button type="button" onclick="selectWorkflowStep(2)" class="workflow-tab-btn p-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted">
+                    <button type="button" onclick="selectWorkflowStep(2)" class="workflow-tab-btn py-3 px-1 sm:px-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted">
                         <span class="block text-[10px] opacity-80 mb-0.5">02</span>뼈대 세우기
                     </button>
-                    <button type="button" onclick="selectWorkflowStep(3)" class="workflow-tab-btn p-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted">
+                    <button type="button" onclick="selectWorkflowStep(3)" class="workflow-tab-btn py-3 px-1 sm:px-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted">
                         <span class="block text-[10px] opacity-80 mb-0.5">03</span>초고 쓰기
                     </button>
-                    <button type="button" onclick="selectWorkflowStep(4)" class="workflow-tab-btn p-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted">
+                    <button type="button" onclick="selectWorkflowStep(4)" class="workflow-tab-btn py-3 px-1 sm:px-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted">
                         <span class="block text-[10px] opacity-80 mb-0.5">04</span>다듬기
                     </button>
-                    <button type="button" onclick="selectWorkflowStep(5)" class="workflow-tab-btn p-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted">
+                    <button type="button" onclick="selectWorkflowStep(5)" class="workflow-tab-btn py-3 px-1 sm:px-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted">
                         <span class="block text-[10px] opacity-80 mb-0.5">05</span>완결 발행
                     </button>
                 </div>
@@ -644,12 +519,12 @@
             <!-- Workflow Step Detail Cards (Prompt sections removed & layout enhanced) -->
             <div id="workflow-steps-container">
                 <!-- STEP 01 -->
-                <div class="workflow-step-card bg-white rounded-3xl p-8 sm:p-12 border border-line shadow-sm" data-step="1">
-                    <div class="flex items-center justify-between mb-6">
-                        <span class="px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 01</span>
-                        <span class="text-xs font-semibold text-ink-light">목표: 흩어진 아이디어를 한 줄 핵심으로 묶기</span>
+                <div class="workflow-step-card bg-white rounded-3xl p-6 sm:p-12 border border-line shadow-sm" data-step="1">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+                        <span class="shrink-0 whitespace-nowrap px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 01</span>
+                        <span class="text-xs font-semibold text-ink-light [text-wrap:balance]">목표: 흩어진 아이디어를 한 줄 핵심으로 묶기</span>
                     </div>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-ink mb-6">1단계: 막연한 생각을 '한 줄 핵심'으로 정리하기</h2>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-ink mb-6">1단계: 막연한 생각을 <span class="whitespace-nowrap">'한 줄 핵심'으로</span> 정리하기</h2>
                     <p class="text-ink-muted text-base sm:text-lg leading-relaxed mb-8">
                         글을 쓰기 전 머릿속에 떠오른 생각들은 파편에 불과합니다. "이런 에세이를 써볼까?", "이런 주제의 블로그 글이 재밌겠다" 하는 막연한 메모를 1문장으로 압축하는 것이 첫 번째 출발점입니다.
                     </p>
@@ -675,8 +550,8 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 flex justify-end">
-                        <button type="button" onclick="selectWorkflowStep(2)" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-bold px-7 py-3.5 rounded-xl transition shadow-sm">
+                    <div class="mt-8 flex flex-col sm:flex-row sm:justify-end">
+                        <button type="button" onclick="selectWorkflowStep(2)" class="inline-flex items-center justify-center whitespace-nowrap gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-bold px-7 py-3.5 rounded-xl transition shadow-sm">
                             <span>다음 단계 (뼈대 세우기)로 이동</span>
                             <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
                         </button>
@@ -684,10 +559,10 @@
                 </div>
 
                 <!-- STEP 02 -->
-                <div class="workflow-step-card hidden bg-white rounded-3xl p-8 sm:p-12 border border-line shadow-sm" data-step="2">
-                    <div class="flex items-center justify-between mb-6">
-                        <span class="px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 02</span>
-                        <span class="text-xs font-semibold text-ink-light">목표: 길을 잃지 않도록 목차와 흐름 설계하기</span>
+                <div class="workflow-step-card hidden bg-white rounded-3xl p-6 sm:p-12 border border-line shadow-sm" data-step="2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+                        <span class="shrink-0 whitespace-nowrap px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 02</span>
+                        <span class="text-xs font-semibold text-ink-light [text-wrap:balance]">목표: 길을 잃지 않도록 목차와 흐름 설계하기</span>
                     </div>
                     <h2 class="text-2xl sm:text-4xl font-extrabold text-ink mb-6">2단계: 글 중간에 길을 잃지 않는 뼈대(목차) 세우기</h2>
                     <p class="text-ink-muted text-base sm:text-lg leading-relaxed mb-8">
@@ -715,12 +590,12 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 flex justify-between">
-                        <button type="button" onclick="selectWorkflowStep(1)" class="inline-flex items-center gap-2 bg-siteBg hover:bg-line text-ink text-sm font-bold px-6 py-3.5 rounded-xl transition border border-line">
+                    <div class="mt-8 flex flex-col-reverse sm:flex-row gap-3 justify-between">
+                        <button type="button" onclick="selectWorkflowStep(1)" class="inline-flex items-center justify-center whitespace-nowrap gap-2 bg-siteBg hover:bg-line text-ink text-sm font-bold px-6 py-3.5 rounded-xl transition border border-line">
                             <i data-lucide="arrow-left" class="w-4 h-4" aria-hidden="true"></i>
                             <span>이전 단계</span>
                         </button>
-                        <button type="button" onclick="selectWorkflowStep(3)" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-bold px-7 py-3.5 rounded-xl transition shadow-sm">
+                        <button type="button" onclick="selectWorkflowStep(3)" class="inline-flex items-center justify-center whitespace-nowrap gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-bold px-7 py-3.5 rounded-xl transition shadow-sm">
                             <span>다음 단계 (초고 쓰기)로 이동</span>
                             <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
                         </button>
@@ -728,10 +603,10 @@
                 </div>
 
                 <!-- STEP 03 -->
-                <div class="workflow-step-card hidden bg-white rounded-3xl p-8 sm:p-12 border border-line shadow-sm" data-step="3">
-                    <div class="flex items-center justify-between mb-6">
-                        <span class="px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 03</span>
-                        <span class="text-xs font-semibold text-ink-light">목표: 완벽주의를 버리고 속도감 있게 첫 원고 완성하기</span>
+                <div class="workflow-step-card hidden bg-white rounded-3xl p-6 sm:p-12 border border-line shadow-sm" data-step="3">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+                        <span class="shrink-0 whitespace-nowrap px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 03</span>
+                        <span class="text-xs font-semibold text-ink-light [text-wrap:balance]">목표: 완벽주의를 버리고 속도감 있게 첫 원고 완성하기</span>
                     </div>
                     <h2 class="text-2xl sm:text-4xl font-extrabold text-ink mb-6">3단계: 완벽주의를 버리고 속도감 있게 초고 쓰기</h2>
                     <p class="text-ink-muted text-base sm:text-lg leading-relaxed mb-8">
@@ -759,12 +634,12 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 flex justify-between">
-                        <button type="button" onclick="selectWorkflowStep(2)" class="inline-flex items-center gap-2 bg-siteBg hover:bg-line text-ink text-sm font-bold px-6 py-3.5 rounded-xl transition border border-line">
+                    <div class="mt-8 flex flex-col-reverse sm:flex-row gap-3 justify-between">
+                        <button type="button" onclick="selectWorkflowStep(2)" class="inline-flex items-center justify-center whitespace-nowrap gap-2 bg-siteBg hover:bg-line text-ink text-sm font-bold px-6 py-3.5 rounded-xl transition border border-line">
                             <i data-lucide="arrow-left" class="w-4 h-4" aria-hidden="true"></i>
                             <span>이전 단계</span>
                         </button>
-                        <button type="button" onclick="selectWorkflowStep(4)" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-bold px-7 py-3.5 rounded-xl transition shadow-sm">
+                        <button type="button" onclick="selectWorkflowStep(4)" class="inline-flex items-center justify-center whitespace-nowrap gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-bold px-7 py-3.5 rounded-xl transition shadow-sm">
                             <span>다음 단계 (다듬기)로 이동</span>
                             <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
                         </button>
@@ -772,10 +647,10 @@
                 </div>
 
                 <!-- STEP 04 -->
-                <div class="workflow-step-card hidden bg-white rounded-3xl p-8 sm:p-12 border border-line shadow-sm" data-step="4">
-                    <div class="flex items-center justify-between mb-6">
-                        <span class="px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 04</span>
-                        <span class="text-xs font-semibold text-ink-light">목표: 어색한 문장 정돈 및 내 목소리 입히기</span>
+                <div class="workflow-step-card hidden bg-white rounded-3xl p-6 sm:p-12 border border-line shadow-sm" data-step="4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+                        <span class="shrink-0 whitespace-nowrap px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 04</span>
+                        <span class="text-xs font-semibold text-ink-light [text-wrap:balance]">목표: 어색한 문장 정돈 및 내 목소리 입히기</span>
                     </div>
                     <h2 class="text-2xl sm:text-4xl font-extrabold text-ink mb-6">4단계: 어색한 문장을 정돈하고 내 목소리 입히기</h2>
                     <p class="text-ink-muted text-base sm:text-lg leading-relaxed mb-8">
@@ -803,12 +678,12 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 flex justify-between">
-                        <button type="button" onclick="selectWorkflowStep(3)" class="inline-flex items-center gap-2 bg-siteBg hover:bg-line text-ink text-sm font-bold px-6 py-3.5 rounded-xl transition border border-line">
+                    <div class="mt-8 flex flex-col-reverse sm:flex-row gap-3 justify-between">
+                        <button type="button" onclick="selectWorkflowStep(3)" class="inline-flex items-center justify-center whitespace-nowrap gap-2 bg-siteBg hover:bg-line text-ink text-sm font-bold px-6 py-3.5 rounded-xl transition border border-line">
                             <i data-lucide="arrow-left" class="w-4 h-4" aria-hidden="true"></i>
                             <span>이전 단계</span>
                         </button>
-                        <button type="button" onclick="selectWorkflowStep(5)" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-bold px-7 py-3.5 rounded-xl transition shadow-sm">
+                        <button type="button" onclick="selectWorkflowStep(5)" class="inline-flex items-center justify-center whitespace-nowrap gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-bold px-7 py-3.5 rounded-xl transition shadow-sm">
                             <span>다음 단계 (완결 발행)로 이동</span>
                             <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
                         </button>
@@ -816,10 +691,10 @@
                 </div>
 
                 <!-- STEP 05 -->
-                <div class="workflow-step-card hidden bg-white rounded-3xl p-8 sm:p-12 border border-line shadow-sm" data-step="5">
-                    <div class="flex items-center justify-between mb-6">
-                        <span class="px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 05</span>
-                        <span class="text-xs font-semibold text-ink-light">목표: 최종 등록 및 발행으로 완결 마침표 찍기</span>
+                <div class="workflow-step-card hidden bg-white rounded-3xl p-6 sm:p-12 border border-line shadow-sm" data-step="5">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+                        <span class="shrink-0 whitespace-nowrap px-4 py-1.5 rounded-full bg-accent-bg text-accent text-xs font-extrabold tracking-wide">Step 05</span>
+                        <span class="text-xs font-semibold text-ink-light [text-wrap:balance]">목표: 최종 등록 및 발행으로 완결 마침표 찍기</span>
                     </div>
                     <h2 class="text-2xl sm:text-4xl font-extrabold text-ink mb-6">5단계: 발행 및 플랫폼 등록으로 당당하게 완결하기</h2>
                     <p class="text-ink-muted text-base sm:text-lg leading-relaxed mb-8">
@@ -853,7 +728,7 @@
                         <a href="https://open.kakao.com/o/pVBIXMIi" target="_blank" rel="noopener noreferrer"
                            class="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white font-bold px-7 py-3.5 rounded-xl shadow transition">
                             <i data-lucide="users" class="w-4 h-4" aria-hidden="true"></i>
-                            <span>완결러들 오픈톡방에서 완결 인증하기</span>
+                            <span>완결러들 오픈톡방에서 <span class="whitespace-nowrap">완결 인증하기</span></span>
                         </a>
                     </div>
 
@@ -865,12 +740,12 @@
                         </button>
                     </div>
 
-                    <div class="mt-8 flex justify-between">
-                        <button type="button" onclick="selectWorkflowStep(4)" class="inline-flex items-center gap-2 bg-siteBg hover:bg-line text-ink text-sm font-bold px-6 py-3.5 rounded-xl transition border border-line">
+                    <div class="mt-8 flex flex-col-reverse sm:flex-row gap-3 justify-between">
+                        <button type="button" onclick="selectWorkflowStep(4)" class="inline-flex items-center justify-center whitespace-nowrap gap-2 bg-siteBg hover:bg-line text-ink text-sm font-bold px-6 py-3.5 rounded-xl transition border border-line">
                             <i data-lucide="arrow-left" class="w-4 h-4" aria-hidden="true"></i>
                             <span>이전 단계</span>
                         </button>
-                        <button type="button" onclick="switchView('main'); scrollToSection('#stibee');" class="inline-flex items-center gap-2 text-ink-muted hover:text-accent text-sm font-bold px-4 py-3.5 rounded-xl transition">
+                        <button type="button" onclick="switchView('main'); scrollToSection('#stibee');" class="inline-flex items-center justify-center whitespace-nowrap gap-2 text-ink-muted hover:text-accent text-sm font-bold px-4 py-3.5 rounded-xl transition">
                             <span>뉴스레터 구독하러 가기</span>
                             <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
                         </button>
@@ -878,25 +753,29 @@
                 </div>
             </div>
         </div>
-    </main>
 
-    <!-- Archive Modal (재사용 템플릿, 내용은 JS가 채움) -->
-    <div id="archive-modal" class="hidden fixed inset-0 z-50">
-        <div class="absolute inset-0 bg-ink/50 backdrop-blur-sm" onclick="closeArchiveModal()"></div>
-        <div class="relative h-full flex items-center justify-center p-4 sm:p-6">
-            <div class="relative bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto border border-line shadow-xl">
-                <div class="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-line px-6 sm:px-8 py-4 flex items-center justify-between rounded-t-3xl z-10">
-                    <span id="archive-modal-badge" class="inline-flex items-center px-2.5 py-1 rounded-full bg-accent-bg text-accent text-[11px] font-bold"></span>
-                    <button type="button" onclick="closeArchiveModal()"
-                            class="w-8 h-8 rounded-lg hover:bg-siteBg flex items-center justify-center transition shrink-0" aria-label="닫기">
-                        <i data-lucide="x" class="w-4 h-4 text-ink-muted" aria-hidden="true"></i>
+        <!-- VIEW: ARCHIVE ARTICLE (DEDICATED PAGE, 주소: #archive/<id>, 내용은 JS가 채움) -->
+        <div id="view-archive" class="hidden py-12 md:py-20 px-4 sm:px-6">
+            <div class="max-w-2xl mx-auto">
+                <button type="button" onclick="backToArchiveList()"
+                        class="inline-flex items-center gap-2 text-ink-muted hover:text-accent font-bold text-sm mb-8 transition">
+                    <i data-lucide="arrow-left" class="w-4 h-4" aria-hidden="true"></i>
+                    <span>Archive 목록으로</span>
+                </button>
+
+                <article id="archive-article"></article>
+
+                <div class="mt-14 bg-white rounded-3xl p-8 border border-line shadow-sm text-center">
+                    <h2 class="text-lg sm:text-xl font-extrabold text-ink mb-4">금요일마다 받는 글쓰기 템플릿</h2>
+                    <button type="button" onclick="switchView('main'); scrollToSection('#stibee');"
+                            class="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-bold px-7 py-3.5 rounded-xl transition shadow-sm">
+                        <span>뉴스레터 구독하러 가기</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
                     </button>
                 </div>
-
-                <div id="archive-modal-body" class="px-6 sm:px-8 py-6 sm:py-8"></div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- 구독 완료 커스텀 모달 팝업 추가 -->
     <div id="subscribe-popup-modal" class="hidden fixed inset-0 z-50">
@@ -908,7 +787,7 @@
                 </div>
                 <h3 id="popup-title" class="text-xl font-extrabold text-ink mb-2">구독 완료되었습니다!</h3>
                 <p id="popup-desc" class="text-ink-muted text-sm leading-relaxed mb-6">
-                    앞으로 매주 뉴스레터를 받아보실 수 있습니다.
+                    앞으로 매주 금요일, 글쓰기 템플릿을 보내드릴게요.
                 </p>
                 <button type="button" onclick="closeSubscribePopup()"
                         class="w-full bg-accent hover:bg-accent-hover text-white font-bold py-3.5 rounded-xl transition">
@@ -934,11 +813,9 @@
             </p>
 
             <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-ink-muted">
-                <button type="button" onclick="switchView('workflow');" class="hover:text-accent transition">5단계</button>
                 <a href="#tips" onclick="switchView('main'); scrollToSection('#tips'); return false;" class="hover:text-accent transition">Archive</a>
                 <a href="#stibee" onclick="switchView('main'); scrollToSection('#stibee'); return false;" class="hover:text-accent transition">Newsletter</a>
                 <a href="#ask" onclick="switchView('main'); scrollToSection('#ask'); return false;" class="hover:text-accent transition">고민 보내기</a>
-                <a href="#products" onclick="switchView('main'); scrollToSection('#products'); return false;" class="hover:text-accent transition">상품</a>
                 <a href="https://open.kakao.com/o/pVBIXMIi" target="_blank" rel="noopener noreferrer" class="hover:text-accent transition">오픈톡방</a>
             </div>
         </div>
@@ -957,6 +834,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             setArchiveFilter('ALL');
+            handleRoute();
+            window.addEventListener('hashchange', handleRoute);
+            window.addEventListener('popstate', handleRoute);
 
             // 구독 폼 제출 감지 및 예쁜 커스텀 팝업 띄우기
             const form = document.getElementById('stb_subscribe_form');
@@ -975,20 +855,79 @@
             }
         });
 
-        function switchView(viewName) {
-            const mainView = document.getElementById('view-main');
-            const workflowView = document.getElementById('view-workflow');
+        const DEFAULT_TITLE = document.title;
+        // 화면 전환 시 스크롤은 switchView()/scrollToSection()이 직접 관리 (브라우저 자동 복원이 덮어쓰지 않게)
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        let currentArchiveId = null; // 현재 글 화면에 표시 중인 글 id
+        let justSwitchedView = false; // switchView() 직후 같은 흐름의 scrollToSection()은 즉시 이동
 
-            if (viewName === 'workflow') {
-                mainView.classList.add('hidden');
-                workflowView.classList.remove('hidden');
-                selectWorkflowStep(1);
-            } else {
-                workflowView.classList.add('hidden');
-                mainView.classList.remove('hidden');
+        function switchView(viewName) {
+            const views = {
+                main: document.getElementById('view-main'),
+                workflow: document.getElementById('view-workflow'),
+                archive: document.getElementById('view-archive')
+            };
+            const target = views[viewName] ? viewName : 'main';
+            const viewChanged = views[target].classList.contains('hidden');
+
+            Object.entries(views).forEach(([name, el]) => {
+                if (el) el.classList.toggle('hidden', name !== target);
+            });
+
+            if (target === 'workflow') selectWorkflowStep(1);
+
+            if (target !== 'archive') {
+                document.title = DEFAULT_TITLE;
+                // 글 주소(#archive/<id>)에서 벗어나면 해시를 비워, 새로고침 시 글이 다시 열리지 않게 함
+                if (location.hash.startsWith('#archive/')) {
+                    setUrlSafely(location.pathname + location.search);
+                }
+                currentArchiveId = null;
             }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // 다른 화면으로 넘어갈 때는 새 페이지처럼 즉시 맨 위로 이동.
+            // (smooth 스크롤은 화면 전환 직후 이어지는 scrollToSection() 이동과 충돌해 목표 위치에 못 가는 경우가 있음)
+            // 같은 화면 안에서의 이동은 scrollToSection()이 smooth로 처리
+            if (viewChanged || target === 'archive') {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+                justSwitchedView = true;
+                setTimeout(() => { justSwitchedView = false; }, 0);
+            }
             lucide.createIcons();
+        }
+
+        // 주소 해시 → 화면: #archive/<id>면 글 화면, 그 외에는 글 화면을 닫고 메인으로
+        // 주소 변경 시도. 미리보기·data: 페이지처럼 주소 변경이 막힌 환경에서는 조용히 건너뜀 (화면 전환은 그대로 동작)
+        function setUrlSafely(url) {
+            try {
+                history.pushState(null, '', url);
+            } catch (e) {
+                // 주소만 안 바뀔 뿐 동작에는 영향 없음
+            }
+        }
+
+        // 카드 클릭: 주소 이동(hashchange)에 의존하지 않고 글 화면을 직접 연 뒤 주소를 갱신
+        function openArchive(id) {
+            if (!showArchiveArticle(id)) return;
+            const hash = '#archive/' + encodeURIComponent(id);
+            if (location.hash !== hash) setUrlSafely(hash);
+        }
+
+        function handleRoute() {
+            const match = location.hash.match(/^#archive\/(.+)$/);
+            if (match) {
+                const id = decodeURIComponent(match[1]);
+                // hashchange·popstate가 함께 발생해도 같은 글을 두 번 렌더링하지 않음
+                if (id === currentArchiveId && !document.getElementById('view-archive').classList.contains('hidden')) return;
+                if (showArchiveArticle(id)) return;
+                backToArchiveList();
+                return;
+            }
+            const archiveView = document.getElementById('view-archive');
+            // 브라우저 뒤로가기로 글 화면을 벗어난 경우 → 목록 위치로 복귀
+            if (archiveView && !archiveView.classList.contains('hidden')) {
+                backToArchiveList();
+            }
         }
 
         function selectWorkflowStep(stepNum) {
@@ -996,9 +935,9 @@
             const tabs = document.querySelectorAll('.workflow-tab-btn');
             tabs.forEach((btn, idx) => {
                 if ((idx + 1) === stepNum) {
-                    btn.className = 'workflow-tab-btn p-3 rounded-xl text-center transition border border-accent bg-accent-bg text-accent font-bold text-xs sm:text-sm';
+                    btn.className = 'workflow-tab-btn py-3 px-1 sm:px-3 rounded-xl text-center transition border border-accent bg-accent-bg text-accent font-bold text-xs sm:text-sm';
                 } else {
-                    btn.className = 'workflow-tab-btn p-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted';
+                    btn.className = 'workflow-tab-btn py-3 px-1 sm:px-3 rounded-xl text-center transition border border-line bg-siteBg text-ink-muted font-bold text-xs sm:text-sm hover:border-ink-muted';
                 }
             });
 
@@ -1031,7 +970,7 @@
             const modal = document.getElementById('subscribe-popup-modal');
             const desc = document.getElementById('popup-desc');
             if (modal && desc) {
-                desc.innerHTML = `<strong class="text-ink">${email}</strong>(으)로<br>앞으로 매주 뉴스레터를 받아보실 수 있습니다.`;
+                desc.innerHTML = `<strong class="text-ink">${email}</strong>(으)로<br>앞으로 매주 금요일, 글쓰기 템플릿을 보내드릴게요.`;
                 modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
                 lucide.createIcons();
@@ -1047,11 +986,20 @@
         }
 
         function scrollToSection(targetHash) {
+            const behavior = justSwitchedView ? 'instant' : 'smooth';
+            // 모바일 메뉴가 열린 채로 위치를 계산하면, 메뉴가 닫히며 줄어든 높이만큼 목표보다 아래로 지나침 → 먼저 닫고 계산
+            closeMobileMenu();
             if (targetHash) {
                 const el = document.querySelector(targetHash);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                if (el) {
+                    // 상단 고정 헤더에 섹션 시작 부분이 가려지지 않도록 헤더 높이만큼 덜 내려감
+                    const header = document.querySelector('body > header');
+                    const offset = header ? header.offsetHeight : 0;
+                    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top: Math.max(0, top), behavior });
+                }
             } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior });
             }
             lucide.createIcons();
         }
@@ -1091,53 +1039,122 @@
         }
 
         // Archive 데이터 (새 아카이브는 이 배열에 객체 하나만 추가하면 됨)
+        // 각 글은 전용 화면(#archive/<id>)으로 열림 — 주소를 뉴스레터 등에 그대로 링크 가능
         // sections: 아이템마다 구성이 달라도 되는 유연한 본문 블록 배열.
         //   heading(선택), paragraphs(선택, 문자열 배열), quote(선택, 강조 인용 1줄), afterQuote(선택, 인용 뒤 문단)
+        //   blocks(선택, 순서대로 렌더링): { type: 'p', text } 문단(\n은 원문 줄 구분, 화면에서는 이어 붙임) | { type: 'sub', text } 소제목
+        //                                 | { type: 'list', items } 글머리표 목록 | { type: 'quote', text } 강조 인용
+        // subtitle(선택): 없으면 카드·글 화면에서 생략
         // prompt(선택): 있으면 "Try This · Prompt" 코드 블록이 렌더링됨
         const ARCHIVE_ITEMS = [
             {
                 id: 'archive-01',
-                tag: 'RESEARCH',
-                badgeLabel: 'RESEARCH · ARCHIVE 01',
-                title: 'AI는 이야기를 더 좋게 만들 수 있다. 그런데 왜 작품들은 닮아질까?',
-                subtitle: '창작자에게 필요한 것은 AI의 답이 아니라, AI의 답을 다루는 기준이다.',
-                cardSummary: 'AI 아이디어는 개별 이야기의 창의성·완성도 평가를 높일 수 있다. 그러나 특정 단편 창작 실험에서는 AI 도움을 받은 이야기들이 서로 더 유사해지는 경향도 관찰됐다.',
+                tag: 'GUIDE',
+                badgeLabel: 'GUIDE · ARCHIVE 01',
+                title: 'AI로 세계관 설정의 논리적 모순을 검증하는 방법',
+                cardSummary: '웹소설을 오래 쓰다 보면 설정을 만드는 것보다 이미 만든 설정을 지키는 일이 더 어려워질 때가 있다.',
                 sections: [
                     {
-                        paragraphs: [
-                            'AI 아이디어는 개별 이야기의 창의성·완성도 평가를 높일 수 있다. 그러나 특정 단편 창작 실험에서는 AI 도움을 받은 이야기들이 서로 더 유사해지는 경향도 관찰됐다.'
-                        ],
-                        quote: '이 글을 읽고 남길 것: 내 기획안의 유사화 위험을 점검할 질문 1개'
-                    },
-                    {
-                        heading: '연구의 조건',
-                        paragraphs: [
-                            '2024년 *Science Advances*에 발표된 연구에서 참가자 293명은 청소년·청년 독자를 위한 8문장 영어 단편을 썼다. 참가자들은 AI 아이디어 없이 쓰거나, 생성형 AI가 제시한 이야기 아이디어 1개 또는 최대 5개를 참고하는 조건에 무작위로 배정됐다.'
+                        blocks: [
+                            { type: 'p', text: '웹소설을 오래 쓰다 보면 설정을 만드는 것보다 이미 만든 설정을 지키는 일이 더 어려워질 때가 있다.' },
+                            { type: 'p', text: '처음에는 인물의 나이와 특징, 과거 회상의 시점, 인물 관계, 능력과 마법의 규칙, 아이템, 공간과 지리 등 세계관의 규칙을 따로 메모하거나, 설정집을 만들기도 하고, 인물표나 연표를 정리하기도 한다.' },
+                            { type: 'p', text: '그런데 연재가 길어지면서 문제가 발생한다.\n작가가 확인해야 하는 것은 더 이상 메모에 적힌 설정만이 아니다.\n실제로 발행된 수십, 수백 회차 속에서 그 설정이 어떻게 사용됐는지까지 함께 봐야 한다.' },
+                            { type: 'p', text: '설정을 정리해 두는 것만으로 세계관이 유지되는 것은 아니다.' }
                         ]
                     },
                     {
-                        heading: '핵심 결과',
-                        paragraphs: [
-                            'AI 아이디어에 접근한 참가자들의 이야기는 인간 단독 조건보다 새로움과 유용성 평가가 높아질 수 있었다. 반면 AI 아이디어를 활용한 이야기들은 인간 단독 조건보다 서로 더 유사해지는 경향을 보였다.',
-                            'AI는 막힌 발상을 넓히고 개별 결과물의 완성도를 보완할 수 있지만, 비슷한 제안을 여러 창작자가 중심축으로 채택하면 작품 사이의 거리도 좁아질 수 있다.'
+                        heading: '인간의 메모만으로는 설정이 유지되지 않는 이유',
+                        blocks: [
+                            { type: 'p', text: '작품의 설정 정보는 하나의 설정집 안에만 존재하지 않는다.\n처음 정리한 설정 외에도 실제 연재를 하면서 새롭게 추가되거나 확정된 정보가 생기기 마련이다.\n사건의 시점이 구체화되기도 하고, 인물 관계가 변하기도 하며, 과거 회상이나 대사를 통해 새로운 사실이 추가되기도 한다.\n결국 하나의 설정도 여러 회차와 문서에 나뉘어 존재하게 된다.' },
+                            { type: 'p', text: '예를 들어 주인공의 능력에 적용되는 규칙이 앞뒤가 맞는지 확인한다고 해보자.\n설정집에는 주인공이 능력을 한 번 사용하면 일정 시간 동안 다시 사용할 수 없다고 적혀 있을 수 있다.\n그런데 18화에서는 능력을 사용한 직후 탈진하는 장면이 나오고, 37화에서는 위기 상황에서 짧은 시간 안에 능력을 두 번 사용하는 장면이 등장한다.\n또 62화에서는 특정 조건에서는 연속 사용이 가능하다는 사실이 새롭게 밝혀질 수도 있다.' },
+                            { type: 'p', text: '이때 확인해야 하는 것은 단순히 “이 능력을 사용할 수 있는가”가 아니다.' },
+                            { type: 'list', items: [
+                                '설정집에 적힌 능력의 기본 규칙',
+                                '실제 회차에서 능력을 사용한 방식',
+                                '사용 후 발생하는 대가나 제약',
+                                '예외가 적용되는 조건',
+                                '이후 회차에서 추가되거나 수정된 규칙'
+                            ] },
+                            { type: 'p', text: '이 기록들이 서로 앞뒤가 맞는지 확인해야 한다.' },
+                            { type: 'p', text: '사람이 직접 확인하는 것도 가능하다. 문제는 확인하는 데 드는 시간이다.\n설정집에서 기본 규칙을 찾고, 능력이 사용된 회차를 다시 찾고, 해당 장면의 앞뒤 문맥을 읽고, 이후에 추가된 예외 조건과 비교해야 한다.\n하나의 설정을 검토하는 데도 설정집과 여러 회차를 반복해서 오가야만 체크할 수 있다.' },
+                            { type: 'p', text: '연재가 길어지고 등장인물과 사건이 늘어날수록 이런 확인 작업은 더 많아진다.\n결국 부담이 되는 것은 메모를 남기는 일보다 흩어진 설정 정보를 다시 찾아 연결하고, 서로 맞는지 검증하는 일이다.\n경우에 따라서는 실제 집필보다 설정을 확인하고 맞추는 데 더 많은 시간이 들 수도 있다.' }
                         ]
                     },
                     {
-                        heading: '해석의 한계',
-                        paragraphs: [
-                            '이 연구는 일반 참가자가 8문장 단편을 쓴 특정 조건의 실험이다. 장편소설·웹소설·드라마의 장기 개발, 전문 작가의 반복적 AI 협업, 개인화된 프롬프트 환경에 같은 결과를 그대로 적용할 수는 없다.',
-                            '따라서 이것은 AI 사용을 금지하자는 근거가 아니라, 내 작업에서 확인해볼 가설이다.'
+                        heading: 'AI에게 맡길 것은 ‘충돌 탐색’이다',
+                        blocks: [
+                            { type: 'p', text: 'AI에게 가장 먼저 맡길 일은 기존 자료에서 서로 맞지 않는 정보를 찾아내는 것이다.\n예를 들면 이런 요청을 할 수 있을 것이다.' },
+                            { type: 'quote', text: '“내가 이미 만든 설정과 실제 원고 사이에 충돌하는 지점이 있는지 찾아줘.”' },
+                            { type: 'p', text: '이렇게 하면 시간선, 인물 동선, 세계관 규칙처럼 반복해서 확인해야 하는 항목을 검토할 수 있다.' },
+                            { type: 'sub', text: '1. 시간과 시차 확인' },
+                            { type: 'p', text: '30화에서 중요한 사건이 금요일 밤에 발생했다고 해보자.\n그런데 몇 회차 뒤에 같은 사건을 언급하면서 “사건 다음 날인 월요일”이라고 표현한다면 시간선이 어긋났을 가능성이 있다.' },
+                            { type: 'p', text: '한 문장만 보면 쉽게 찾을 수 있는 오류처럼 보이지만, 실제 장편에서는 사건 사이의 경과 시간이 여러 회차에 나뉘어 표현되는 경우가 많다.\n과거 회상과 현재 시점이 반복되는 작품이라면 더 복잡해진다.' },
+                            { type: 'p', text: '이때 AI에게 사건, 날짜, 경과 시간과 관련된 표현을 뽑아 시간순으로 정리하게 하면 사람이 원고 전체를 다시 읽기 전에 확인할 구간을 먼저 좁힐 수 있다.' },
+                            { type: 'sub', text: '2. 인물 동선 확인' },
+                            { type: 'p', text: '한 인물이 오후에는 서울에 있었는데 몇 시간 뒤 별다른 이동 설명 없이 먼 지역에 등장한다면 동선을 확인해야 한다.\n판타지 작품이라면 이동 조건이 더 복잡할 수 있다.\n말, 마차, 비행선, 순간이동처럼 이동 수단마다 속도와 조건이 다르기 때문이다.' },
+                            { type: 'p', text: 'AI에게 판단보다는 비교를 요청해야 한다.\n기존에 정해 둔 이동 규칙과 실제 장면을 대조해 이동 시간이나 위치가 맞지 않는 부분만 표시하게 하는 것이다.' },
+                            { type: 'sub', text: '3. 세계관 법칙 확인' },
+                            { type: 'p', text: '마법에는 반드시 대가가 필요하다고 설정해 놓고 어떤 장면에서는 아무런 대가 없이 사용했다면 확인이 필요하다.\n특정 계급만 사용할 수 있는 기술을 다른 인물이 사용하거나, 죽은 사람은 되살릴 수 없다는 규칙을 초반에 명시해 놓고 후반에서 그 규칙을 위반할 수도 있는 것이다.' },
+                            { type: 'p', text: '이때 기준이 되는 것은 일반적인 판타지 상식이 아니다.\n작가가 이미 정해 둔 세계관 규칙이다.\nAI에게 그 규칙과 실제 장면을 비교하게 하면 규칙과 어긋날 가능성이 있는 장면을 먼저 찾을 수 있다.' }
                         ]
                     },
                     {
-                        heading: '창작자 적용 가설',
-                        paragraphs: [
-                            'AI가 제시한 첫 설정, 첫 갈등, 첫 반전을 작품의 중심축으로 빠르게 채택할수록 결과물이 평균적인 방향으로 수렴할 가능성이 있다.',
-                            'AI의 답을 바로 채택하기 전에 아래 질문을 남겨보자.'
-                        ],
-                        quote: '이 요소를 지우면, 다른 작품의 인물·배경·장르로도 거의 그대로 옮길 수 있는가?',
-                        afterQuote: [
-                            "'예'라면 그 답은 채택보다 변형 또는 폐기의 대상일 수 있다. AI는 완성 답안이 아니라, 작가가 판단·검증·재설계할 재료로 쓸 때 더 유용하다."
+                        heading: '설정집보다 중요한 것은 ‘실제 연재본과의 대조’다',
+                        blocks: [
+                            { type: 'p', text: '설정 관리에서 흔히 생기는 착각이 있다.\n설정집을 잘 정리해 두면 설정 오류도 자연스럽게 줄어들 것이라는 생각이다.' },
+                            { type: 'p', text: '설정집은 분명 필요하다.\n하지만 실제 연재 과정에서는 설정집과 원고가 서로 달라질 수 있다.\n처음에는 설정집에 A라고 적어 뒀지만 실제 집필 과정에서 B로 바꿨을 수 있다.\n퇴고 과정에서 장면이 수정됐는데 설정 문서는 그대로 남아 있을 수도 있다.\n반대로 원고에서 실수로 잘못 표현된 내용이 있을 수도 있다.' },
+                            { type: 'p', text: '따라서 어느 한쪽만 정답으로 삼아서는 안 된다. 두 가지 모두 중요하다.\n설정집과 실제 연재본이 다르다면 먼저 그 차이를 찾아내고, 어떤 내용을 현재 작품의 기준으로 삼을지는 작가가 결정해야 한다.' },
+                            { type: 'p', text: '그래서 AI를 설정 검증에 사용할 때는 하나의 자료만 주기보다 다음과 같은 자료를 함께 비교하게 하는 편이 낫다.' },
+                            { type: 'list', items: [
+                                '현재 설정 문서',
+                                '실제 연재된 원고',
+                                '중요한 사건의 시간 정보',
+                                '인물별 핵심 설정',
+                                '작품 안에서 반드시 지켜야 하는 세계관 규칙'
+                            ] },
+                            { type: 'p', text: 'AI는 설정집과 여러 회차에 흩어진 정보를 한데 모아 비교하는 데 유용하다.\n충돌 가능성이 있는 장면부터 추려내면 작가는 그 부분을 우선시해 다시 확인할 수 있다.' }
+                        ]
+                    },
+                    {
+                        heading: 'AI가 찾은 모순을 전부 고치면 안 되는 이유',
+                        blocks: [
+                            { type: 'p', text: 'AI가 찾아낸 모순이 항상 오류인 것은 아니다.\n작가는 의도적으로 모순을 만들기도 한다.' },
+                            { type: 'p', text: '어떤 인물이 앞뒤가 다른 말을 하는 이유가 나중의 반전을 위한 것일 수 있다.\n두 기록의 날짜가 다른 것이 세계관 오류가 아니라 누군가 기록을 조작했다는 복선일 수도 있다.\n독자가 현재 시점에서 모순이라고 느끼게 만드는 것 자체가 서사의 장치가 되는 경우도 있다.' },
+                            { type: 'p', text: '그래서 AI에게 맡길 일과 작가가 직접 결정해야 할 일은 분리해야 한다.\nAI가 할 일은 여기까지다.' },
+                            { type: 'quote', text: '“이 두 정보가 서로 충돌합니다.”' },
+                            { type: 'p', text: '그다음 질문은 작가의 것이다.' },
+                            { type: 'quote', text: '“이 충돌은 실수인가, 의도인가?”' },
+                            { type: 'p', text: 'AI는 충돌 후보를 찾을 수 있다.\n하지만 그 충돌을 수정할지, 유지할지, 나중에 설명할지는 작품 전체의 전개와 작가의 의도에 따라 달라진다.\n독자가 현재 알고 있는 정보, 반전이 공개되는 시점, 인물의 거짓말 여부처럼 문장만 봐서는 판단하기 어려운 요소도 있기 때문이다.' }
+                        ]
+                    },
+                    {
+                        heading: '설정 검증에서 사용할 수 있는 가장 단순한 기준',
+                        blocks: [
+                            { type: 'p', text: 'AI로 설정을 검토할 때는 모순을 찾는 일과 수정하는 일을 한 번에 시키지 않는 편이 좋다.' },
+                            { type: 'sub', text: '1단계. 사실 추출' },
+                            { type: 'p', text: '원고와 설정 문서에서 검증에 필요한 정보를 뽑는다.\n예를 들면 날짜, 장소, 인물 상태, 소유 중인 아이템, 능력의 조건, 세계관 규칙 등이 있다.' },
+                            { type: 'sub', text: '2단계. 충돌 탐색' },
+                            { type: 'p', text: '같은 항목에 서로 다른 정보가 존재하는지 찾는다.' },
+                            { type: 'sub', text: '3단계. 근거 확인' },
+                            { type: 'p', text: '각 정보가 어느 회차, 어느 장면에서 나왔는지 함께 표시한다.\n가능하다면 원문 문장이나 주변 문맥까지 같이 확인할 수 있게 한다.' },
+                            { type: 'sub', text: '4단계. 작가 판단' },
+                            { type: 'p', text: '발견된 충돌을 다음과 같이 나눈다.' },
+                            { type: 'list', items: [
+                                '수정해야 하는 설정 오류',
+                                '의도적으로 유지할 모순',
+                                '현재 정보만으로 판단하기 어려운 항목'
+                            ] },
+                            { type: 'p', text: '이렇게 하면 AI가 작품의 설정을 임의로 고치는 일을 줄일 수 있다.' },
+                            { type: 'p', text: '특히 3단계, 근거 확인 단계가 중요하다.\nAI가 단순히 “이건 오류입니다”라고 말하는 것보다 어떤 문장과 어떤 문장이 충돌하는지 함께 보여주는 편이 훨씬 유용하다.\n그래야 작가가 직접 원문을 확인하고 판단할 수 있다.' }
+                        ]
+                    },
+                    {
+                        heading: 'AI를 쓰더라도 최종 설정 책임은 작가에게 남는다',
+                        blocks: [
+                            { type: 'p', text: 'AI를 설정 검증에 사용한다고 해서 설정 관리가 완전히 자동화되는 것은 아니다.\nAI가 놓치는 정보가 있을 수 있고, 입력하지 않은 회차는 검증할 수 없다.\n인물의 거짓말이나 장면의 함의처럼 문장 표면만으로 판단하기 어려운 요소도 있다.' },
+                            { type: 'p', text: '그래서 AI는 설정을 대신 결정하는 도구보다는 작가가 확인해야 할 범위를 줄여주는 검증 도구로 사용하는 편이 적합하다.' },
+                            { type: 'p', text: '수백 회차를 처음부터 다시 읽으며 모순을 찾는 대신,\n“이 다섯 곳은 기존 설정과 충돌할 가능성이 있습니다.”라는 후보를 먼저 받아보는 것이다.\n그러면 작가는 그 부분을 직접 확인하고, 수정할지 유지할지 결정할 수 있다.' },
+                            { type: 'p', text: '설정을 만드는 사람도 작가이고, 어떤 모순을 의도적으로 남길지 결정하는 사람도 작가다.\nAI를 그 과정에서 놓치기 쉬운 충돌을 먼저 찾아주는 검증자로 사용하는 건 어떨까.' }
                         ]
                     }
                 ],
@@ -1173,17 +1190,17 @@
             const visible = filtered.slice(0, archiveVisibleCount);
 
             grid.innerHTML = visible.map((item) => `
-                <button type="button" onclick="openArchiveModal('${item.id}')"
-                        class="text-left bg-white rounded-3xl p-6 sm:p-8 border border-line shadow-sm hover:border-accent/40 hover:shadow-md transition group">
+                <a href="#archive/${encodeURIComponent(item.id)}" onclick="openArchive('${item.id}'); return false;"
+                   class="block text-left bg-white rounded-3xl p-6 sm:p-8 border border-line shadow-sm hover:border-accent/40 hover:shadow-md transition group">
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-accent-bg text-accent text-[11px] font-bold mb-3">${escapeHtml(item.badgeLabel)}</span>
                     <h3 class="text-lg sm:text-xl font-extrabold text-ink mb-1 group-hover:text-accent transition">${escapeHtml(item.title)}</h3>
-                    <p class="text-ink-muted text-sm font-semibold mb-3">${escapeHtml(item.subtitle)}</p>
-                    <p class="text-ink-muted text-sm leading-relaxed mb-4">${escapeHtml(item.cardSummary)}</p>
+                    ${item.subtitle ? `<p class="text-ink-muted text-sm font-semibold mb-3">${escapeHtml(item.subtitle)}</p>` : ''}
+                    <p class="text-ink-muted text-sm leading-relaxed mb-4 [text-wrap:balance]">${escapeHtml(item.cardSummary)}</p>
                     <span class="inline-flex items-center gap-1 text-accent text-sm font-bold">
                         전체 보기
                         <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
                     </span>
-                </button>
+                </a>
             `).join('');
 
             const emptyState = document.getElementById('archive-empty-state');
@@ -1214,41 +1231,60 @@
             renderArchiveCards();
         }
 
-        // sections 배열 하나를 THE PROBLEM 스타일 본문 HTML로 변환
+        // 글 화면 타이포 (위계: 글 제목 h1 > 섹션 제목 h2 > 소제목 h3 > 본문)
+        const ARTICLE_P_CLASS = 'text-ink-body text-base leading-[1.8] mb-6';
+        const ARTICLE_QUOTE_CLASS = 'bg-accent-bg border border-accent/20 rounded-xl px-5 py-4 my-6';
+
+        function renderArticleParagraph(text) {
+            // 원고의 문장별 줄바꿈(\n)은 화면에서 이어 붙여 자연스러운 문단으로 표시 (데이터는 원문 그대로 유지)
+            return `<p class="${ARTICLE_P_CLASS}">${formatText(text).replace(/\n/g, ' ')}</p>`;
+        }
+
+        function renderArticleQuote(text) {
+            return `<div class="${ARTICLE_QUOTE_CLASS}"><p class="text-ink text-base font-semibold leading-relaxed">${formatText(text)}</p></div>`;
+        }
+
+        // sections 배열을 글 본문 HTML로 변환
         function renderArchiveSections(sections) {
-            return (sections || []).map((section) => {
+            return (sections || []).map((section, index) => {
                 const heading = section.heading
-                    ? `<span class="inline-block text-accent font-bold text-[11px] uppercase tracking-widest mb-2">${escapeHtml(section.heading)}</span>`
+                    ? `<h2 class="text-xl sm:text-[22px] font-extrabold text-ink leading-snug mb-5 ${index === 0 ? '' : 'mt-12 pt-10 border-t border-line'}">${escapeHtml(section.heading)}</h2>`
                     : '';
-                const paragraphs = (section.paragraphs || [])
-                    .map((p) => `<p class="text-ink-muted text-sm leading-relaxed mb-3">${formatText(p)}</p>`)
-                    .join('');
-                const quote = section.quote
-                    ? `<div class="bg-accent-bg border border-accent/20 rounded-xl px-4 py-3 my-4"><p class="text-ink text-sm font-semibold leading-relaxed">${formatText(section.quote)}</p></div>`
-                    : '';
-                const afterQuote = (section.afterQuote || [])
-                    .map((p) => `<p class="text-ink-muted text-sm leading-relaxed mb-3">${formatText(p)}</p>`)
-                    .join('');
-                return `<div class="mb-6">${heading}${paragraphs}${quote}${afterQuote}</div>`;
+                const paragraphs = (section.paragraphs || []).map(renderArticleParagraph).join('');
+                const quote = section.quote ? renderArticleQuote(section.quote) : '';
+                const afterQuote = (section.afterQuote || []).map(renderArticleParagraph).join('');
+                const blocks = (section.blocks || []).map(renderArchiveBlock).join('');
+                return `<section>${heading}${paragraphs}${quote}${afterQuote}${blocks}</section>`;
             }).join('');
         }
 
-        function openArchiveModal(id) {
+        function renderArchiveBlock(block) {
+            if (block.type === 'sub') {
+                return `<h3 class="text-[17px] sm:text-lg font-bold text-ink leading-snug mt-10 mb-3">${formatText(block.text)}</h3>`;
+            }
+            if (block.type === 'list') {
+                const items = (block.items || [])
+                    .map((item) => `<li>${formatText(item)}</li>`)
+                    .join('');
+                return `<ul class="list-disc pl-5 space-y-2 mb-6 text-ink-body text-base leading-relaxed marker:text-accent">${items}</ul>`;
+            }
+            if (block.type === 'quote') {
+                return renderArticleQuote(block.text);
+            }
+            return renderArticleParagraph(block.text);
+        }
+
+        // 글 화면 표시. 없는 id면 false 반환
+        function showArchiveArticle(id) {
             const item = ARCHIVE_ITEMS.find((entry) => entry.id === id);
-            if (!item) return;
-
-            const modal = document.getElementById('archive-modal');
-            const badge = document.getElementById('archive-modal-badge');
-            const body = document.getElementById('archive-modal-body');
-            if (!modal || !badge || !body) return;
-
-            badge.textContent = item.badgeLabel;
+            const container = document.getElementById('archive-article');
+            if (!item || !container) return false;
 
             const promptHtml = item.prompt ? `
-                <span class="inline-block text-accent font-bold text-[11px] uppercase tracking-widest mb-2">Try This · Prompt</span>
+                <span class="block text-accent font-bold text-xs uppercase tracking-widest mt-12 mb-3">Try This · Prompt</span>
                 <div class="relative mb-6">
-                    <pre id="archive-modal-prompt" class="bg-ink text-white/90 rounded-xl p-4 sm:p-5 text-xs sm:text-sm font-mono whitespace-pre-wrap leading-relaxed pr-14">${escapeHtml(item.prompt)}</pre>
-                    <button type="button" onclick="copyPrompt('archive-modal-prompt')"
+                    <pre id="archive-article-prompt" class="bg-ink text-white/90 rounded-xl p-4 sm:p-5 text-xs sm:text-sm font-mono whitespace-pre-wrap leading-relaxed pr-14">${escapeHtml(item.prompt)}</pre>
+                    <button type="button" onclick="copyPrompt('archive-article-prompt')"
                             class="absolute top-3 right-3 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white transition"
                             aria-label="프롬프트 복사">
                         <i data-lucide="copy" class="w-4 h-4" aria-hidden="true"></i>
@@ -1257,37 +1293,39 @@
             ` : '';
 
             const relatedHtml = item.related ? `
-                <span class="inline-block text-ink-light font-bold text-[11px] uppercase tracking-widest mb-2">Related</span>
-                <p class="text-ink-light text-sm">${escapeHtml(item.related)}</p>
+                <div class="mt-12 pt-8 border-t border-line">
+                    <span class="block text-ink-light font-bold text-[11px] uppercase tracking-widest mb-2">Related</span>
+                    <p class="text-ink-light text-sm">${escapeHtml(item.related)}</p>
+                </div>
             ` : '';
 
-            body.innerHTML = `
-                <h2 class="text-xl sm:text-2xl font-extrabold text-ink mb-1.5">${escapeHtml(item.title)}</h2>
-                <h3 class="text-accent font-bold text-sm sm:text-base mb-6">${escapeHtml(item.subtitle)}</h3>
+            container.innerHTML = `
+                <header class="mb-10 pb-8 border-b border-line">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-accent-bg text-accent text-[11px] font-bold mb-4">${escapeHtml(item.badgeLabel)}</span>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-ink leading-snug">${escapeHtml(item.title)}</h1>
+                    ${item.subtitle ? `<p class="text-accent font-bold text-sm sm:text-base mt-3">${escapeHtml(item.subtitle)}</p>` : ''}
+                </header>
 
                 ${renderArchiveSections(item.sections)}
                 ${promptHtml}
                 ${relatedHtml}
             `;
 
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            lucide.createIcons();
+            document.title = `${item.title} - 완결러들`;
+            switchView('archive');
+            currentArchiveId = id;
+            return true;
         }
 
-        function closeArchiveModal() {
-            const modal = document.getElementById('archive-modal');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            document.body.style.overflow = '';
+        function backToArchiveList() {
+            switchView('main');
+            scrollToSection('#tips');
         }
 
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            closeArchiveModal();
             closeSubscribePopup();
         });
-
         function copyPrompt(id) {
             const el = document.getElementById(id);
             if (!el) return;
@@ -1299,4 +1337,3 @@
     </script>
 </body>
 </html>
-<p style="display:none">Preview test</p>
